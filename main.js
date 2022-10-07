@@ -34,13 +34,38 @@ async function getPokedex() {
     let detailData = await detailResponse.json();
 
     let pokemonName = data.results[count].name;
-    let pokemonNum = detailData.order;
-
-    listArr[count].textContent = `${pokemonNum}. ${pokemonName}`;
-
-    console.log(detailData);
-    console.log(data.results);
-    console.log(pokemonName);
+    let pokemonNum = detailData.id;
+    let textInput = `${pokemonNum}. ${pokemonName}`
+    listArr[count].textContent = textInput.toUpperCase();
   }
 }
 getPokedex();
+
+
+// async function nextPage
+// assign offset to offset + 20
+// run getPokedex
+// add eventListener to ".right-button", if "click" run nextPage()
+
+async function nextPage(){
+    offset = offset + 20
+    getPokedex();
+}
+
+let nextButton = document.querySelector(".right-button");
+nextButton.addEventListener("click", nextPage);
+
+// copy NEXT button for PREV button but offset -20 instead of + 20
+// if offset = > 0 let function code run
+
+async function prevPage(){
+    if (offset > 0) {
+        offset = offset - 20
+    getPokedex();
+    }
+    
+}
+
+let prevButton = document.querySelector(".left-button");
+prevButton.addEventListener("click", prevPage);
+
