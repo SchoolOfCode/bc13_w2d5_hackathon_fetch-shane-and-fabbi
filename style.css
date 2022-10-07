@@ -116,7 +116,7 @@ body {
 }
 
 .poke-id {
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 20px;
 }
 
@@ -127,8 +127,8 @@ body {
 
 .poke-front-image,
 .poke-back-image {
-  height: 96px;
-  width: 96px;
+  height: 100px;
+  width: 100px;
 }
 
 .screen__description {

@@ -15,6 +15,8 @@
 // populate one list item with pokemon name✅
 
 // let response = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0"");
+
+
 let offset = 0;
 let listArr = document.querySelectorAll(".list-item");
 
@@ -36,6 +38,7 @@ async function getPokedex() {
     let pokemonNum = detailData.id;
     let textInput = `${pokemonNum}. ${pokemonName}`;
     listArr[count].textContent = textInput.toUpperCase();
+    console.log(detailData);
   }
 }
 getPokedex();
@@ -69,18 +72,26 @@ prevButton.addEventListener("click", prevPage);
 let mainScreen = document.querySelector(".main-screen");
 mainScreen.classList.remove("hide");
 
-// inside function getInfo
-// let pokeWeight = document.querySelector(".stats__weight");
-
 let nameHeader = document.querySelector(".poke-name");
 let pokeID = document.querySelector(".poke-id");
 let frontImg = document.querySelector(".poke-front-image");
 let backImg = document.querySelector(".poke-back-image");
 
-function getInfo() {
-  nameHeader.textContent = pokemonName;
-  console.log("click");
-}
+async function getInfoOne() {
+    
+    let response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=20&offset=${offset}`);
+    let data = await response.json();
+    let detailResponse = await fetch(data.results[0].url);
+    let detailData = await detailResponse.json();
 
-let listOne = document.querySelector("#list-1");
-listOne.addEventListener("click", getInfo);
+    let nameData = data.results[0].name;
+    let pokemonID = detailData.id;
+    let pokeImageFront = detailData.sprites.front_default
+    let pokeImageBack = detailData.sprites.back_default
+    nameHeader.textContent = nameData;
+    pokeID.textContent = pokemonID;
+    frontImg.setAttribute("src", pokeImageFront)
+    backImg.setAttribute("src", pokeImageBack)
+  }
+listArr[0].addEventListener("click", getInfoOne());
+
