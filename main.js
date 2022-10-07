@@ -16,7 +16,6 @@
 
 // let response = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0"");
 let offset = 0;
-let listOne = document.querySelector("#list-1");
 let listArr = document.querySelectorAll(".list-item");
 
 async function getPokedex() {
@@ -35,21 +34,20 @@ async function getPokedex() {
 
     let pokemonName = data.results[count].name;
     let pokemonNum = detailData.id;
-    let textInput = `${pokemonNum}. ${pokemonName}`
+    let textInput = `${pokemonNum}. ${pokemonName}`;
     listArr[count].textContent = textInput.toUpperCase();
   }
 }
 getPokedex();
-
 
 // async function nextPage
 // assign offset to offset + 20
 // run getPokedex
 // add eventListener to ".right-button", if "click" run nextPage()
 
-async function nextPage(){
-    offset = offset + 20
-    getPokedex();
+async function nextPage() {
+  offset = offset + 20;
+  getPokedex();
 }
 
 let nextButton = document.querySelector(".right-button");
@@ -58,14 +56,31 @@ nextButton.addEventListener("click", nextPage);
 // copy NEXT button for PREV button but offset -20 instead of + 20
 // if offset = > 0 let function code run
 
-async function prevPage(){
-    if (offset > 0) {
-        offset = offset - 20
+async function prevPage() {
+  if (offset > 0) {
+    offset = offset - 20;
     getPokedex();
-    }
-    
+  }
 }
 
 let prevButton = document.querySelector(".left-button");
 prevButton.addEventListener("click", prevPage);
 
+let mainScreen = document.querySelector(".main-screen");
+mainScreen.classList.remove("hide");
+
+// inside function getInfo
+// let pokeWeight = document.querySelector(".stats__weight");
+
+let nameHeader = document.querySelector(".poke-name");
+let pokeID = document.querySelector(".poke-id");
+let frontImg = document.querySelector(".poke-front-image");
+let backImg = document.querySelector(".poke-back-image");
+
+function getInfo() {
+  nameHeader.textContent = pokemonName;
+  console.log("click");
+}
+
+let listOne = document.querySelector("#list-1");
+listOne.addEventListener("click", getInfo);
